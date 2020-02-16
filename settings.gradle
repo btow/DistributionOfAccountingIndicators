@@ -1,0 +1,3 @@
+rootProject.name = 'DistributionOfAccountingIndicators'
+include 'model'
+
