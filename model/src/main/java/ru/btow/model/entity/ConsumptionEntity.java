@@ -2,7 +2,6 @@ package ru.btow.model.entity;
 
 import ru.btow.model.dao.EntityInterface;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -15,7 +14,7 @@ public class ConsumptionEntity implements EntityInterface {
     private float consumedVolume;
     private float distributedVolume;
     private boolean connectionFlag;
-    private String parentNode;
+    private String parentNodeUid;
 
     @Override
     public UUID getUUID() {
@@ -34,7 +33,7 @@ public class ConsumptionEntity implements EntityInterface {
         this.consumedVolume = consumptionEntity.consumedVolume;
         this.distributedVolume = consumptionEntity.distributedVolume;
         this.connectionFlag = consumptionEntity.connectionFlag;
-        this.parentNode = consumptionEntity.parentNode;
+        this.parentNodeUid = consumptionEntity.parentNodeUid;
     }
 
     public String getNodeId() {
@@ -69,11 +68,49 @@ public class ConsumptionEntity implements EntityInterface {
         this.connectionFlag = connectionFlag;
     }
 
-    public String getParentNode() {
-        return parentNode;
+    public String getParentNodeUid() {
+        return parentNodeUid;
     }
 
-    public void setParentNode(String parentNode) {
-        this.parentNode = parentNode;
+    public void setParentNodeUid(String parentNodeUid) {
+        this.parentNodeUid = parentNodeUid;
+    }
+
+    @Override
+    public String toString() {
+        return "ConsumptionEntity{" +
+                "uid='" + uid + '\'' +
+                ", nodeId='" + nodeId + '\'' +
+                ", consumedVolume=" + consumedVolume +
+                ", distributedVolume=" + distributedVolume +
+                ", connectionFlag=" + connectionFlag +
+                ", parentNode='" + parentNodeUid + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ConsumptionEntity that = (ConsumptionEntity) o;
+
+        if (Float.compare(that.consumedVolume, consumedVolume) != 0) return false;
+        if (Float.compare(that.distributedVolume, distributedVolume) != 0) return false;
+        if (connectionFlag != that.connectionFlag) return false;
+        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
+        if (nodeId != null ? !nodeId.equals(that.nodeId) : that.nodeId != null) return false;
+        return parentNodeUid != null ? parentNodeUid.equals(that.parentNodeUid) : that.parentNodeUid == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = uid != null ? uid.hashCode() : 0;
+        result = 31 * result + (nodeId != null ? nodeId.hashCode() : 0);
+        result = 31 * result + (consumedVolume != +0.0f ? Float.floatToIntBits(consumedVolume) : 0);
+        result = 31 * result + (distributedVolume != +0.0f ? Float.floatToIntBits(distributedVolume) : 0);
+        result = 31 * result + (connectionFlag ? 1 : 0);
+        result = 31 * result + (parentNodeUid != null ? parentNodeUid.hashCode() : 0);
+        return result;
     }
 }

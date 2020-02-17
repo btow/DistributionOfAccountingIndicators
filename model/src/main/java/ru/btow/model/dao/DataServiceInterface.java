@@ -1,7 +1,6 @@
 package ru.btow.model.dao;
 
-import com.sun.istack.internal.NotNull;
-
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,12 +12,14 @@ public interface DataServiceInterface {
 
     void closeConnection();
 
-    boolean createAnEntity(@NotNull final EntityInterface entityInterface);
+    List<EntityInterface> getAllEntity();
 
-    EntityInterface readTheAnEntity(@NotNull final UUID uuid);
+    boolean createAnEntity(final EntityInterface entityInterface);
 
-    boolean updateEntity(@NotNull final UUID uuid, @NotNull EntityInterface entityInterface);
+    EntityInterface readTheAnEntity(final UUID uuid);
 
-    boolean deleteTheEntity(@NotNull final UUID uuid);
+    boolean updateEntity(final UUID uuid, EntityInterface entityInterface);
+
+    boolean deleteTheEntity(final UUID uuid);
 
 }

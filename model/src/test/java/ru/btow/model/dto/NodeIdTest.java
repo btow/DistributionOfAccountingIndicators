@@ -14,7 +14,7 @@ import java.util.List;
 public class NodeIdTest {
 
     private int numberTests;
-    private List<Pair<String, List>> expValues = new ArrayList<Pair<String, List>>();
+    private List<Pair<String, List>> expValues = new ArrayList<>();
     private List<NodeId> testCases = new ArrayList<>();
 
     @Before

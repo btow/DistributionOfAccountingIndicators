@@ -1,11 +1,11 @@
 package ru.btow.model.providers;
 
-import com.sun.istack.internal.NotNull;
 import ru.btow.model.dao.DataServiceInterface;
 import ru.btow.model.dao.EntityInterface;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class DataProvider extends ArrayList<EntityInterface> implements DataServiceInterface {
 
     @Override
-    public DataProvider openConnection(@NotNull String... args) {
+    public DataProvider openConnection(String... args) {
         return this;
     }
 
@@ -23,13 +23,18 @@ public class DataProvider extends ArrayList<EntityInterface> implements DataServ
     }
 
     @Override
-    public boolean createAnEntity(@NotNull EntityInterface entityInterface) {
+    public List<EntityInterface> getAllEntity() {
+        return super.subList(0, super.size());
+    }
+
+    @Override
+    public boolean createAnEntity(EntityInterface entityInterface) {
         this.add(entityInterface);
         return true;
     }
 
     @Override
-    public EntityInterface readTheAnEntity(@NotNull final UUID uuid) {
+    public EntityInterface readTheAnEntity(final UUID uuid) {
         final EntityInterface[] result = {null};
         this.forEach(entity -> {
             if (entity.getUUID().equals(uuid)) result[0] = entity;
@@ -38,7 +43,7 @@ public class DataProvider extends ArrayList<EntityInterface> implements DataServ
     }
 
     @Override
-    public boolean updateEntity(@NotNull final UUID uuid, @NotNull EntityInterface entityInterface) {
+    public boolean updateEntity(final UUID uuid, EntityInterface entityInterface) {
         final boolean[] result = {false};
         this.forEach(entity -> {
             if (entity.getUUID().equals(uuid))
@@ -52,7 +57,7 @@ public class DataProvider extends ArrayList<EntityInterface> implements DataServ
     }
 
     @Override
-    public boolean deleteTheEntity(@NotNull final UUID uuid) {
+    public boolean deleteTheEntity(final UUID uuid) {
         boolean result = false;
         Iterator<EntityInterface> iterator = this.iterator();
         while (iterator.hasNext()){
