@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id=":controller:test" external.linked.project.path="$MODULE_DIR$/../../../controller" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="DistributionOfAccountingIndicators" external.system.module.type="sourceSet" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output-test url="file://$MODULE_DIR$/../../../controller/build/classes/java/test" />
+    <output-test url="file://$MODULE_DIR$/../../../controller/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../controller/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../../controller/src/test/java" isTestSource="true" />

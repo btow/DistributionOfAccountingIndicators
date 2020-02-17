@@ -1,19 +1,19 @@
 package ru.btow.controller;
 
 import ru.btow.model.dao.AccountingNodesTreeInterface;
+import ru.btow.model.dao.EntityInterface;
 import ru.btow.model.dto.ConsumptionNode;
 import ru.btow.model.dto.NodeId;
 import ru.btow.model.entity.ConsumptionEntity;
 import ru.btow.model.providers.DataProvider;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class AccountingNodesTree implements AccountingNodesTreeInterface {
 
-    DataProvider dataProvider;
-    Map<String, ConsumptionNode> accountingNodesTree = new TreeMap<>();
+    protected DataProvider dataProvider;
+    protected Map<String, ConsumptionNode> accountingNodesTree = new HashMap<>();
+    protected Map<String, String> uuidAndIdMap = new HashMap<>();
 
     void openConnection(){
         this.dataProvider = new DataProvider().openConnection();
@@ -24,7 +24,8 @@ public class AccountingNodesTree implements AccountingNodesTreeInterface {
         if (dataProvider == null){
             openConnection();
         }
-        dataProvider.getAllEntity().forEach(entity -> {
+        for (EntityInterface entity :
+                dataProvider.getAllEntity()) {
             ConsumptionEntity consumptionEntity = (ConsumptionEntity) entity;
             ConsumptionNode node = new ConsumptionNode();
             NodeId nodeId = new NodeId();
@@ -40,11 +41,12 @@ public class AccountingNodesTree implements AccountingNodesTreeInterface {
             node.setDistributedVolume(consumptionEntity.getDistributedVolume());
             node.setConnectionFlag(consumptionEntity.isConnectionFlag());
             node.setChildNodes(new ArrayList<>());
-            if (consumptionEntity.getParentNodeUid() != null){
-                accountingNodesTree.get(consumptionEntity.getNodeId()).getChildNodes().add(node);
+            if (!consumptionEntity.getParentNodeUid().isEmpty()){
+                accountingNodesTree.get(uuidAndIdMap.get(consumptionEntity.getParentNodeUid())).getChildNodes().add(node);
             }
             accountingNodesTree.put(consumptionEntity.getNodeId(), node);
-        });
+            uuidAndIdMap.put(consumptionEntity.getUUID().toString(), consumptionEntity.getNodeId());
+        }
     }
 
     @Override
@@ -54,6 +56,11 @@ public class AccountingNodesTree implements AccountingNodesTreeInterface {
             createTreeOnRoot();
         }
         return accountingNodesTree.get(nodeId.toString());
+    }
+
+    @Override
+    public ConsumptionNode getNodeOnUid(UUID nodeUuid) {
+        return null;
     }
 
     @Override
