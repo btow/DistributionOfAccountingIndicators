@@ -7,14 +7,13 @@ import ru.btow.model.entity.ConsumptionEntity;
 import ru.btow.model.providers.DataProvider;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class AccountingNodesTree implements AccountingNodesTreeInterface {
 
-    private DataProvider dataProvider;
-    private Map<String, ConsumptionNode> accountingNodesTree = new TreeMap<>();
+    DataProvider dataProvider;
+    Map<String, ConsumptionNode> accountingNodesTree = new TreeMap<>();
 
     void openConnection(){
         this.dataProvider = new DataProvider().openConnection();
