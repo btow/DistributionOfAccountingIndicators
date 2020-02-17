@@ -23,7 +23,8 @@ public class DataProviderTest extends DataProvider {
     public void setUp() throws Exception {
         List<List<String>> parentNodeIds = new ArrayList<>();
         int numberLevels = 3, maxNumberChildOfNode = (int) Math.floor((numberTestCases - 1) / (numberLevels - 1)),
-                curNumberParentOfNode = 2, curNumberChildOfNode = 1, childOfNodeCounter = 0,
+                curNumberParentOfNodeOnLevel = 1, curNumberChildOfNode = 1,
+                parentOfNodeCounterOnLevel = 0, childOfNodeCounter = 0,
                 nodeCounter = 0, level = 0;
         for (int i = 0; i < numberLevels; i++) {
             List<String> levelParentNodeIds = new ArrayList<>();
@@ -32,34 +33,33 @@ public class DataProviderTest extends DataProvider {
             nodeCounter++;
             if (nodeCounter == numberTestCases)
                 break;
+            childOfNodeCounter++;
+            if (childOfNodeCounter == curNumberChildOfNode){
+                childOfNodeCounter = 1;
+                curNumberChildOfNode++;
+                if (curNumberChildOfNode == maxNumberChildOfNode){
+                    curNumberChildOfNode = 2;
+
+                }
+            }
             ConsumptionEntity testCase = new ConsumptionEntity();
             testCase.setUUID(UUID.randomUUID());
             String nodeId = "";
-            float consumedVolume = i;
-            for (int j = 0; j < level; j++) {
+            nodeId = nodeId.substring(0, ((level + 1) * 2 - 2));
+            testCase.setNodeId(nodeId);
+
+            float consumedVolume = nodeCounter;
+            for (int j = 0; j < (level + 1); j++) {
                 nodeId += (j + ".");
                 consumedVolume += (j / 10);
             }
-            nodeId = nodeId.substring(0, ((level + 1) * 2 - 2));
-            testCase.setNodeId(nodeId);
             testCase.setConsumedVolume(consumedVolume);
             testCase.setDistributedVolume(consumedVolume);
             testCase.setConnectionFlag(nodeCounter % 2 == 1);
-            if (level < (numberLevels - 1)) {
-                parentNodeIds.get(level).add(testCase.getNodeId());
-                curNumberChildOfNode++;
-            } else {
-                if (childOfNodeCounter == curNumberChildOfNode) {
-                    curNumberParentOfNode++;
-                    if (curNumberParentOfNode == parentNodeIds.get(level - 1).size()) {
-                        throw new RuntimeException("The list of " + (level - 1) + "-level nodes ended unexpectedly.");
-                    } else if (curNumberParentOfNode == maxNumberChildOfNode) {
-                        curNumberParentOfNode = 2;
-                    }
-                    childOfNodeCounter = -1;
-                }
-                testCase.setParentNode(parentNodeIds.get(level - 1).get(curNumberParentOfNode));
-                childOfNodeCounter++;
+            if (level != 1)
+                testCase.setParentNode(parentNodeIds.get(level - 1).get(parentOfNodeCounterOnLevel));
+            else {
+
             }
             this.tastCases.add(testCase);
         }
