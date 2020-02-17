@@ -2,18 +2,18 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators.iml" filepath="$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators.iml" filepath="$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators.iml" group="DistributionOfAccountingIndicators" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators_main.iml" filepath="$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators_main.iml" group="DistributionOfAccountingIndicators" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators_test.iml" filepath="$PROJECT_DIR$/.idea/modules/DistributionOfAccountingIndicators_test.iml" group="DistributionOfAccountingIndicators" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller.iml" filepath="$PROJECT_DIR$/.idea/modules/controller.iml" group="controller" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller/controller_main.iml" filepath="$PROJECT_DIR$/.idea/modules/controller/controller_main.iml" group="controller" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller/controller_test.iml" filepath="$PROJECT_DIR$/.idea/modules/controller/controller_test.iml" group="controller" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model.iml" filepath="$PROJECT_DIR$/.idea/modules/model.iml" group="model" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_main.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_main.iml" group="model" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_test.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_test.iml" group="model" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view.iml" filepath="$PROJECT_DIR$/.idea/modules/view.iml" group="view" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view/view_main.iml" filepath="$PROJECT_DIR$/.idea/modules/view/view_main.iml" group="view" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view/view_test.iml" filepath="$PROJECT_DIR$/.idea/modules/view/view_test.iml" group="view" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller.iml" filepath="$PROJECT_DIR$/.idea/modules/controller.iml" group="DistributionOfAccountingIndicators/controller" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller/controller_main.iml" filepath="$PROJECT_DIR$/.idea/modules/controller/controller_main.iml" group="DistributionOfAccountingIndicators/controller" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller/controller_test.iml" filepath="$PROJECT_DIR$/.idea/modules/controller/controller_test.iml" group="DistributionOfAccountingIndicators/controller" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model.iml" filepath="$PROJECT_DIR$/.idea/modules/model.iml" group="DistributionOfAccountingIndicators/model" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_main.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_main.iml" group="DistributionOfAccountingIndicators/model" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/model_test.iml" filepath="$PROJECT_DIR$/.idea/modules/model/model_test.iml" group="DistributionOfAccountingIndicators/model" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view.iml" filepath="$PROJECT_DIR$/.idea/modules/view.iml" group="DistributionOfAccountingIndicators/view" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view/view_main.iml" filepath="$PROJECT_DIR$/.idea/modules/view/view_main.iml" group="DistributionOfAccountingIndicators/view" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view/view_test.iml" filepath="$PROJECT_DIR$/.idea/modules/view/view_test.iml" group="DistributionOfAccountingIndicators/view" />
     </modules>
   </component>
 </project>
