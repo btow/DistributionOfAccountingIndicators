@@ -21,8 +21,8 @@ public class ConsumptionNode  {
     private boolean connectionFlag;
     private List<ConsumptionNode> childNodes;
 
-    public ConsumptionNode(){
-        this.id = new NodeId();
+    public ConsumptionNode(NodeId newNodeId){
+        this.id = newNodeId;
         this.consumedVolume = 0F;
         this.distributedVolume = 0F;
         this.connectionFlag = true;

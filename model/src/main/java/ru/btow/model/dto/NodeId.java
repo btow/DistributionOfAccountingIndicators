@@ -7,6 +7,17 @@ import java.util.ArrayList;
  */
 public class NodeId extends ArrayList<Integer>{
 
+    public static NodeId nodeIdFromString(String stringNodeId){
+        NodeId nodeId = new NodeId();
+        while (stringNodeId.contains(".")) {
+            int pos = stringNodeId.indexOf(".");
+            nodeId.add(Integer.valueOf(stringNodeId.substring(0, pos)));
+            stringNodeId = stringNodeId.substring(++pos);
+        }
+        nodeId.add(Integer.valueOf(stringNodeId));
+        return nodeId;
+    }
+
     @Override
     public String toString() {
         int[] pointCounter = {this.size(), 1};

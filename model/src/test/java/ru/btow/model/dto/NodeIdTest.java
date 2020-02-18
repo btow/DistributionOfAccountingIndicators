@@ -8,6 +8,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by btow on 15.02.2020.
  */
@@ -45,8 +47,7 @@ public class NodeIdTest {
             System.out.println(expValues.get(testCounter[0]).getKey());
             System.out.println("============= VS ===========");
             System.out.println(nodeId.toString() + "\n");
-            Assert.assertEquals(expValues.get(testCounter[0]++).getKey(), nodeId.toString());
-            return;
+            assertEquals(expValues.get(testCounter[0]++).getKey(), nodeId.toString());
         });
     }
 
@@ -63,14 +64,14 @@ public class NodeIdTest {
                 System.out.println("========= VS ========");
                 System.out.println("actual value:\n" + testCases.get(testCounter[0]));
                 System.out.println("Are these values equivalent? It is " + expNodeId.equals(testCases.get(testCounter[0])) + "\n");
-                Assert.assertFalse(expNodeId.equals(testCases.get(testCounter[0]++)));
+                assertFalse(expNodeId.equals(testCases.get(testCounter[0]++)));
             } else if (testCounter[0]%4 == 2){
                 expNodeId.remove(1);
                 System.out.println("expected value:\n" + expNodeId);
                 System.out.println("========= VS ========");
                 System.out.println("actual value:\n" + testCases.get(testCounter[0]));
                 System.out.println("Are these values equivalent? It is " + expNodeId.equals(testCases.get(testCounter[0])) + "\n");
-                Assert.assertFalse(expNodeId.equals(testCases.get(testCounter[0]++)));
+                assertFalse(expNodeId.equals(testCases.get(testCounter[0]++)));
             } else if (testCounter[0]%4 == 3){
                 expNodeId.remove(0);
                 expNodeId.add(numberTests * 2);
@@ -78,14 +79,26 @@ public class NodeIdTest {
                 System.out.println("========= VS ========");
                 System.out.println("actual value:\n" + testCases.get(testCounter[0]));
                 System.out.println("Are these values equivalent? It is " + expNodeId.equals(testCases.get(testCounter[0])) + "\n");
-                Assert.assertFalse(expNodeId.equals(testCases.get(testCounter[0]++)));
+                assertFalse(expNodeId.equals(testCases.get(testCounter[0]++)));
             } else {
                 System.out.println("expected value:\n" + expNodeId);
                 System.out.println("========= VS ========");
                 System.out.println("actual value:\n" + testCases.get(testCounter[0]));
                 System.out.println("Are these values equivalent? It is " + expNodeId.equals(testCases.get(testCounter[0])) + "\n");
-                Assert.assertTrue(expNodeId.equals(testCases.get(testCounter[0]++)));
+                assertTrue(expNodeId.equals(testCases.get(testCounter[0]++)));
             }
+        });
+    }
+
+    @Test
+    public void nodeIdFromString() {
+        System.out.println("\\=========== nodeIdFromString() ===========\\\n");
+        expValues.forEach(stringListPair -> {
+            System.out.println("expected id: " + stringListPair.getValue());
+            System.out.println("========= VS ========");
+            NodeId nodeId = NodeId.nodeIdFromString(stringListPair.getKey());
+            System.out.println("actual id: " + nodeId);
+            assertArrayEquals(stringListPair.getValue().toArray(), nodeId.toArray());
         });
     }
 }

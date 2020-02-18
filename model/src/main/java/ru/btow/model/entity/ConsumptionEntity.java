@@ -6,6 +6,14 @@ import java.util.UUID;
 
 /**
  * Created by btow on 16.02.2020.
+ *
+ * Consumption entity include a fields:
+ * @uid - a unique identifier derived from the "UUID" type;
+ * @id - hierarchical node number in the tree structure;
+ * @consumedVolume - consumed volume;
+ * @distributedVolume - distributed volume;
+ * @connectionFlag - connection flag, where "true" is "plus", and "false" is "minus";
+ * @parentNodeUid - unique identifier of the parent entity obtained from the "UUID" type.
  */
 public class ConsumptionEntity implements EntityInterface {
 
