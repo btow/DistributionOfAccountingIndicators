@@ -6,6 +6,7 @@ import ru.btow.model.dto.ConsumptionNode;
 import ru.btow.model.dto.NodeId;
 import ru.btow.model.entity.ConsumptionEntity;
 import ru.btow.model.providers.DataProvider;
+import ru.btow.model.utils.Mathem;
 
 import java.io.IOException;
 import java.util.*;
@@ -13,9 +14,10 @@ import java.util.*;
 public class AccountingNodesTree implements AccountingNodesTreeInterface {
 
     protected DataProvider dataProvider;
-    protected Map<String, ConsumptionNode> accountingNodesTree = new HashMap<>();
-    protected Map<String, String> uuidAndIdMap = new HashMap<>();
-    protected Map<String, String> idAndUuidMap = new HashMap<>();
+    protected Map<String, ConsumptionNode> accountingNodesTree = new TreeMap<>();
+    protected Map<String, String> uuidAndIdMap = new TreeMap<>();
+    protected Map<String, String> idAndUuidMap = new TreeMap<>();
+    protected Map<String, List<String>> idAndMaxAmountListMap = new TreeMap<>();
 
     void openConnection(){
         this.dataProvider = new DataProvider().openConnection();
@@ -99,13 +101,24 @@ public class AccountingNodesTree implements AccountingNodesTreeInterface {
         if (accountingNodesTree.isEmpty()){
             createTreeOnRoot();
         }
-        float[] result = {0f};
+        final float[] result = {0f};
+        final float[] maxAmount = {0.0f};
+        final List<String>[] maxAmountList = new ArrayList[]{new ArrayList()};
         node.getChildNodes().forEach(childNode -> {
-            if (childNode.isConnectionFlag())
+            if (childNode.isConnectionFlag()) {
+                if (maxAmount[0] < childNode.getConsumedVolume()){
+                    maxAmount[0] = childNode.getConsumedVolume();
+                    maxAmountList[0].clear();
+                    maxAmountList[0].add(childNode.getId().toString());
+                } else if (maxAmount[0] == childNode.getConsumedVolume()){
+                    maxAmountList[0].add(childNode.getId().toString());
+                }
                 result[0] += childNode.getConsumedVolume();
-            else
+            } else {
                 result[0] -= childNode.getConsumedVolume();
+            }
         });
+        idAndMaxAmountListMap.put(node.getId().toString(), maxAmountList[0]);
         return result[0];
     }
 
@@ -114,6 +127,43 @@ public class AccountingNodesTree implements AccountingNodesTreeInterface {
         if (accountingNodesTree.isEmpty()){
             createTreeOnRoot();
         }
-        return 0;
+        return (node.getConsumedVolume() + node.getDistributedVolume())
+                - getAmountOfChildrensConsumption(node);
+    }
+
+    @Override
+    public void remaindersDistributionFromRounding(ConsumptionNode node) {
+        if (accountingNodesTree.isEmpty()){
+            createTreeOnRoot();
+        }
+        // difference in consumption without rounding
+        float diffWithoutRounding = node.getConsumedVolume() - getAmountOfChildrensConsumption(node);
+        // difference in consumption with rounding
+        float diffWithRounding = Mathem.round(diffWithoutRounding, 2);
+        float[] differenceOfRound = {diffWithoutRounding - diffWithRounding};
+        if (differenceOfRound[0] > 0 && idAndMaxAmountListMap.get(node.getId().toString()).size() > 0){
+            differenceOfRound[0] /= (idAndMaxAmountListMap.get(node.getId().toString())).size();
+            node.getChildNodes().forEach(childNode -> {
+                childNode.setDistributedVolume(differenceOfRound[0]);
+            });
+        }
+    }
+
+    @Override
+    public void consumptionDifferencesDistribution(ConsumptionNode node) {
+        if (accountingNodesTree.isEmpty()){
+            createTreeOnRoot();
+        }
+
+    }
+
+    @Override
+    public void getAllLeafNode() {
+        final List<ConsumptionNode> leafNodes = new ArrayList<>();
+        accountingNodesTree.forEach((nodeId, consumptionNode) -> {
+            if (!consumptionNode.getChildNodes().isEmpty()){
+                System.out.println(consumptionNode);
+            }
+        });
     }
 }
