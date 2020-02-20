@@ -1,4 +1,4 @@
-package ru.btow.model.utils;
+package ru.btow.controller.utils;
 
 import javafx.util.Pair;
 import org.junit.Test;

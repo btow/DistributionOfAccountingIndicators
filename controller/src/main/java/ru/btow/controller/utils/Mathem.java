@@ -1,4 +1,4 @@
-package ru.btow.model.utils;
+package ru.btow.controller.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

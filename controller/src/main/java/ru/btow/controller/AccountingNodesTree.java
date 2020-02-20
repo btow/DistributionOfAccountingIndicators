@@ -1,12 +1,12 @@
-package ru.btow.model;
+package ru.btow.controller;
 
+import ru.btow.controller.utils.Mathem;
 import ru.btow.model.dao.AccountingNodesTreeInterface;
 import ru.btow.model.dao.EntityInterface;
 import ru.btow.model.dto.ConsumptionNode;
 import ru.btow.model.dto.NodeId;
 import ru.btow.model.entity.ConsumptionEntity;
 import ru.btow.model.providers.DataProvider;
-import ru.btow.model.utils.Mathem;
 
 import java.io.IOException;
 import java.util.*;
@@ -154,16 +154,28 @@ public class AccountingNodesTree implements AccountingNodesTreeInterface {
         if (accountingNodesTree.isEmpty()){
             createTreeOnRoot();
         }
-
+        if (isLeaf(node)) return;
+        float[] amountOnlyPositiveValues = {0f};
+        node.getChildNodes().forEach(childNode -> {
+            if (childNode.isConnectionFlag()) amountOnlyPositiveValues[0] += childNode.getConsumedVolume();
+        });
+        node.getChildNodes().forEach(childNode -> {
+            if (childNode.isConnectionFlag())
+                childNode.setDistributedVolume(childNode.getDistributedVolume() + (
+                    getDifferenceInConsumptionWithchildren(node) * (childNode.getConsumedVolume()/amountOnlyPositiveValues[0])
+                    ));
+        });
     }
 
     @Override
-    public void getAllLeafNode() {
-        final List<ConsumptionNode> leafNodes = new ArrayList<>();
+    public String getAllLeafNode() {
+        final String[] leafNodes = {""};
         accountingNodesTree.forEach((nodeId, consumptionNode) -> {
-            if (!consumptionNode.getChildNodes().isEmpty()){
-                System.out.println(consumptionNode);
+            if (isLeaf(consumptionNode)){
+                leafNodes[0] += ("\nid: " + consumptionNode.getId() + "\n" +
+                        "distributedVolume: " + consumptionNode.getDistributedVolume() + "\n");
             }
         });
+        return leafNodes[0];
     }
 }

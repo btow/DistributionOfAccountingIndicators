@@ -4,7 +4,6 @@ import ru.btow.model.dto.ConsumptionNode;
 import ru.btow.model.dto.NodeId;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -24,5 +23,5 @@ public interface AccountingNodesTreeInterface {
     void remaindersDistributionFromRounding(ConsumptionNode node);
     //Distribution of the consumption difference.
     void consumptionDifferencesDistribution(ConsumptionNode node);
-    void getAllLeafNode();
+    String getAllLeafNode();
 }
